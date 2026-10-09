@@ -13,8 +13,10 @@
       if (!customElements.get('model-viewer')) {
         const fallback = document.getElementById('static-fallback');
         const loading = document.getElementById('loading');
+        const viewer = document.getElementById('mascot');
         if (fallback) fallback.hidden = false;
         if (loading) loading.hidden = true;
+        if (viewer) viewer.hidden = true;
         const help = document.getElementById('ar-help');
         if (help) help.textContent = 'この端末のブラウザでは3D表示に対応していません。下の画像をご覧ください。';
       }

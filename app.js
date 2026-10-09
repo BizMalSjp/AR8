@@ -11,6 +11,7 @@ let modelReady = false;
 let fallbackTimer;
 function showNotice(message) { notice.textContent = message; notice.hidden = false; }
 function showStaticFallback(message) {
+  viewer.hidden = true;
   staticFallback.hidden = false;
   loading.hidden = true;
   resetButton.disabled = rotateButton.disabled = saveButton.disabled = true;
@@ -26,6 +27,7 @@ function syncArAvailability() {
 }
 viewer.addEventListener('load', () => {
   clearTimeout(fallbackTimer);
+  viewer.hidden = false;
   staticFallback.hidden = true;
   modelReady = true;
   loading.hidden = true;
