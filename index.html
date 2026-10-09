@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#075ccf">
+  <title>AR8 | ブルーラビット 3D・AR</title>
+  <meta name="description" content="ブルーラビットを360度で眺めたり、お部屋にARで置いて楽しめます。">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="vendor/model-viewer.min.js"></script>
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <header class="header"><a class="brand" href="./" aria-label="AR8 ホーム"><span class="brand-mark">AR8</span><span>BLUE RABBIT</span></a><span class="tag">3D & AR</span></header>
+  <main>
+    <section class="intro"><p class="eyebrow">いつもの場所に、ブルーラビット。</p><h1>くるっと見て、<br class="mobile-break">お部屋に置いて。</h1><p>指で回転・ピンチで拡大縮小。ARなら、実際の空間で眺められます。</p></section>
+    <section class="viewer-card" aria-label="ブルーラビットの3Dビュー">
+      <model-viewer id="mascot" src="assets/blue-rabbit.glb" alt="帽子を持った青いうさぎと、カラフルな4個の丸い飾りの立体モデル"
+        camera-controls touch-action="pan-y" camera-orbit="0deg 78deg auto" camera-target="auto auto auto"
+        shadow-intensity="0.65" shadow-softness="1" exposure="1" interaction-prompt="auto"
+        ar ar-modes="scene-viewer quick-look webxr" ar-placement="floor" ar-scale="auto" xr-environment>
+        <div slot="progress-bar" class="loading" id="loading"><span class="spinner" aria-hidden="true"></span><span>3Dモデルを読み込み中…</span></div>
+        <button slot="ar-button" class="native-ar-button">ARで空間に置く</button>
+        <div slot="ar-prompt" class="ar-prompt">スマートフォンをゆっくり動かして、床やテーブルを映してください</div>
+        <button slot="exit-webxr-ar-button" class="exit-ar-button">ARを閉じる</button>
+      </model-viewer>
+      <p class="view-hint" id="view-hint">ドラッグで回転 · ピンチ／ホイールで拡大縮小</p>
+      <div class="viewer-controls"><button id="reset" disabled>向きを戻す</button><button id="rotate" aria-pressed="false" disabled>自動回転</button><button id="save-image" disabled>画像を保存</button></div>
+    </section>
+    <section class="ar-panel" aria-labelledby="ar-title"><div><p class="eyebrow">VIEW IN YOUR SPACE</p><h2 id="ar-title">あなたの空間に置いてみよう</h2><p id="ar-help" role="status">ARの対応状況を確認しています。</p></div><button id="launch-ar" class="primary" disabled>ARで表示する <span aria-hidden="true">↗</span></button></section>
+    <p id="notice" class="notice" role="alert" hidden></p>
+    <details class="help"><summary>操作方法・対応端末</summary><ul><li>3D画面：指やマウスで回転、2本指またはホイールで拡大縮小できます。</li><li>AR画面：床やテーブルを映して配置し、移動・回転・拡大縮小できます。操作は端末のAR画面に従ってください。</li><li>iPhone・iPadはSafari、AndroidはChromeなどの対応ブラウザで開いてください。</li><li>AR非対応の端末でも、通常の3D表示で楽しめます。</li><li>カメラ映像はサーバーへ送信しません。AR中の撮影は、端末側の撮影・スクリーンショット機能をご利用ください。</li></ul></details>
+  </main><footer>BLUE RABBIT · AR8</footer>
+</body>
+</html>
