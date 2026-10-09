@@ -6,7 +6,7 @@ AR7の操作方針を参考にした独立した3D・ARサイトです。AR7は�
 
 ## AR方式
 
-- Android: Scene Viewerを優先し、必要に応じてWebXRへ対応します。ARCore対応端末とGoogleのAR関連サービスが必要です。
+- Android: ChromeなどのWebXRを使用してブラウザ内で床を認識し、空間を追跡します。Scene Viewerへの自動切替は行いません。ARCore対応端末とGoogle Play開発者サービス（AR）が必要で、未導入の場合はOSがインストールを求める場合があります。Redmi 12CはGoogle公式のARCore対応機種一覧に掲載されていません。
 - iPhone / iPad: SafariからAR Quick Lookを起動します。GLBからUSDZを端末上で生成します。
 - AR非対応端末: ARなしで通常の3D表示に対応します。
 - 3D非対応のブラウザやWebGLを利用できない端末: 読み込みが進まないままにならないよう、案内と画像表示へ切り替えます。
