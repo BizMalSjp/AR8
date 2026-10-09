@@ -8,7 +8,8 @@ AR7の操作方針を参考にした独立した3D・ARサイトです。AR7は�
 
 - Android: Scene Viewerを優先し、必要に応じてWebXRへ対応します。ARCore対応端末とGoogleのAR関連サービスが必要です。
 - iPhone / iPad: SafariからAR Quick Lookを起動します。GLBからUSDZを端末上で生成します。
-- 非対応端末: 通常の3D表示に対応します。
+- AR非対応端末: ARなしで通常の3D表示に対応します。
+- 3D非対応のブラウザやWebGLを利用できない端末: 読み込みが進まないままにならないよう、案内と画像表示へ切り替えます。
 
 HTTPSで公開してください。GitHub Pagesのmainブランチのルートを公開先に設定します。
 

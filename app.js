@@ -6,8 +6,17 @@ const arButton = document.getElementById('launch-ar');
 const arHelp = document.getElementById('ar-help');
 const loading = document.getElementById('loading');
 const notice = document.getElementById('notice');
+const staticFallback = document.getElementById('static-fallback');
 let modelReady = false;
+let fallbackTimer;
 function showNotice(message) { notice.textContent = message; notice.hidden = false; }
+function showStaticFallback(message) {
+  staticFallback.hidden = false;
+  loading.hidden = true;
+  resetButton.disabled = rotateButton.disabled = saveButton.disabled = true;
+  arButton.disabled = true;
+  arHelp.textContent = message;
+}
 function syncArAvailability() {
   const available = modelReady && viewer.canActivateAR;
   arButton.disabled = !available;
@@ -16,18 +25,21 @@ function syncArAvailability() {
     : modelReady ? 'ARには対応スマートフォンが必要です。この端末では3D表示を楽しめます。' : 'ARの対応状況を確認しています。';
 }
 viewer.addEventListener('load', () => {
+  clearTimeout(fallbackTimer);
+  staticFallback.hidden = true;
   modelReady = true;
   loading.hidden = true;
   resetButton.disabled = rotateButton.disabled = saveButton.disabled = false;
   syncArAvailability();
 });
-viewer.addEventListener('error', () => {
+viewer.addEventListener('error', event => {
+  if (event.detail?.type === 'webglcontextlost') {
+    modelReady = false;
+    showStaticFallback('この端末では3D表示を続けられないため、画像で表示しています。');
+    return;
+  }
   modelReady = false;
-  loading.hidden = true;
-  resetButton.disabled = rotateButton.disabled = saveButton.disabled = true;
-  arButton.disabled = true;
-  arHelp.textContent = 'モデルを読み込めませんでした。';
-  showNotice('3Dモデルを読み込めませんでした。通信状況を確認し、ページを再読み込みしてください。');
+  showStaticFallback('3Dモデルを読み込めなかったため、画像で表示しています。通信状況を確認して再読み込みしてください。');
 });
 viewer.addEventListener('ar-status', event => {
   if (event.detail.status === 'failed') showNotice('ARを開始できませんでした。SafariまたはChromeで開き、端末のAR対応とカメラの許可を確認してください。');
@@ -65,3 +77,6 @@ saveButton.addEventListener('click', async () => {
   finally { saveButton.disabled = !modelReady; }
 });
 window.addEventListener('pageshow', syncArAvailability);
+fallbackTimer = window.setTimeout(() => {
+  if (!modelReady) showStaticFallback('3Dの読み込みに時間がかかっています。画像を表示しています。通信状況を確認して再読み込みしてください。');
+}, 20000);
